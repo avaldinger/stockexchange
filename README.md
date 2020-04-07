@@ -1,2 +1,2 @@
-# stockexchange
-Stock Exchange app  built by Spring Boot
+# Stock exchange Java Project
+Stock Exchange app  built using Spring Boot
