@@ -9,13 +9,16 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.avalding.stockapp.tables.Account;
+import com.avalding.stockapp.tables.Orders;
+import com.avalding.stockapp.tables.Orders;
 
 @Repository
-public class OrderDAOHibernateImpl implements StockDAO<Account> {
+@Component("OrderDAO")
+public class OrderDAOHibernateImpl implements StockDAO<Orders> {
 
 	private static final Logger log = LoggerFactory.getLogger(OrderDAOHibernateImpl.class);
 
@@ -28,23 +31,19 @@ public class OrderDAOHibernateImpl implements StockDAO<Account> {
 		entityManager = theEntityManager;
 	}
 
-	public OrderDAOHibernateImpl() {
-
-	}
-
 	@Override
 	@Transactional
-	public void addNewEntitytoDB(Account theAccount) {
+	public void addNewEntitytoDB(Orders theOrder) {
 
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		log.info("Add new entry method has been called");
 
-		// save the account
-		currentSession.saveOrUpdate(theAccount);
+		// save the Orders
+		currentSession.saveOrUpdate(theOrder);
 
-		log.info(theAccount.toString());
+		log.info("New Order has been added: " + theOrder.toString());
 
 	}
 
@@ -55,60 +54,60 @@ public class OrderDAOHibernateImpl implements StockDAO<Account> {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
-		// get the account by the given id
-		Account theAccount = currentSession.get(Account.class, theId);
+		// get the Orders by the given id
+		Orders theOrders = currentSession.get(Orders.class, theId);
 
-		// update the given account
-		currentSession.remove(theAccount);
+		// update the given Orders
+		currentSession.remove(theOrders);
 
-		log.info("Account has been deleted with id: " + theId);
+		log.info("Orders has been deleted with id: " + theId);
 
 	}
 
 	@Override
 	@Transactional
-	public List<Account> findAll() {
+	public List<Orders> findAll() {
 
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
-		// Query all the rows from the Account table
-		Query<Account> theQuery = currentSession.createQuery("from Account", Account.class);
+		// Query all the rows from the Orders table
+		Query<Orders> theQuery = currentSession.createQuery("from Orders", Orders.class);
 
-		List<Account> theAccounts = theQuery.getResultList();
+		List<Orders> theOrders = theQuery.getResultList();
 
-		return theAccounts;
+		return theOrders;
 	}
 
 	@Override
 	@Transactional
-	public Account findById(int theId) {
+	public Orders findById(int theId) {
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
-		log.info("Looking for account wiht id: " + theId);
+		log.info("Looking for Orders wiht id: " + theId);
 
-		// get the account by the given id
-		Account theAccount = currentSession.get(Account.class, theId);
+		// get the Orders by the given id
+		Orders theOrders = currentSession.get(Orders.class, theId);
 
-		log.info("Account retrieved from DB:" + theAccount.toString());
+		log.info("Orders retrieved from DB:" + theOrders.toString());
 
-		return theAccount;
+		return theOrders;
 	}
 
 	@Override
 	@Transactional
-	public Account updatById(int theId) {
+	public Orders updatById(int theId) {
 
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
-		// get the account by the given id
-		Account theAccount = currentSession.get(Account.class, theId);
+		// get the Orders by the given id
+		Orders theOrders = currentSession.get(Orders.class, theId);
 
-		currentSession.update(theAccount);
+		currentSession.update(theOrders);
 
-		return theAccount;
+		return theOrders;
 
 	}
 

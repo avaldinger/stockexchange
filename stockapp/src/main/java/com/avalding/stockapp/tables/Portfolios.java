@@ -26,7 +26,7 @@ public class Portfolios {
 	
 	
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinColumn(name = "fk_account_id_portfolios")
+	@JoinColumn(name = "fk_account_id_portfolios", referencedColumnName="id")
 	private Account accounts;
 	
 	

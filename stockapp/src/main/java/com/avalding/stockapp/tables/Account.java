@@ -1,6 +1,7 @@
 package com.avalding.stockapp.tables;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,17 +31,17 @@ public class Account {
 	private String ownerType;
 
 	
-	@OneToMany(mappedBy="accounts", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="accounts", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	private List<Portfolios> portfolios;
 	
 	
 	
-	@OneToMany(mappedBy="accounts", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="accounts", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	private List<AccountBalances> accountBalances;
 	
 	
 	
-	@OneToMany(mappedBy="accounts", cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="accounts", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	private List<Orders> orders;
 	
 
@@ -115,7 +116,7 @@ public class Account {
 		this.orders = orders;
 	}
 
-	/**
+	
 	// convenience method to add portfolios
 	public void addPortfolio(Portfolios tempPortfolio) {
 
@@ -124,7 +125,7 @@ public class Account {
 		}
 
 		portfolios.add(tempPortfolio);
-	}**/
+	}
 	
 	
 	

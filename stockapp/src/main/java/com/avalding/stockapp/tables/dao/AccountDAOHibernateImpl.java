@@ -9,12 +9,15 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.avalding.stockapp.tables.Account;
 
 @Repository
+@Primary
 public class AccountDAOHibernateImpl implements StockDAO<Account> {
 
 	private static final Logger log = LoggerFactory.getLogger(AccountDAOHibernateImpl.class);
@@ -22,15 +25,14 @@ public class AccountDAOHibernateImpl implements StockDAO<Account> {
 	// defining EntityManager to use
 	// the spring boot feature to connect to the DB
 	private EntityManager entityManager;
+	
+	
 
 	@Autowired
 	public AccountDAOHibernateImpl(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
 	}
 
-	public AccountDAOHibernateImpl() {
-
-	}
 
 	@Override
 	@Transactional
