@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.avalding.stockapp.tables.Account;
 import com.avalding.stockapp.tables.AccountBalances;
+import com.avalding.stockapp.tables.Portfolios;
 
 @Repository
 @Component("AccountBalancesDAO")
@@ -109,6 +111,13 @@ public class AccountBalancesDAOHibernateImpl implements StockDAO<AccountBalances
 
 		return theAccountBalances;
 
+	}
+
+
+	@Override
+	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

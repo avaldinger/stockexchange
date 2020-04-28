@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="priceHistory")
+@Table(name="pricehistory")
 public class PriceHistory {
 	
 	@Id

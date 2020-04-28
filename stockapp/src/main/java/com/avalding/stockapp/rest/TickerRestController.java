@@ -35,23 +35,23 @@ public class TickerRestController {
 		repository = theRepository;
 	}
 
-	// expose "/Tickerss" get back uses
-	@GetMapping("/tickerss")
+	// expose "/Tickers" get back uses
+	@GetMapping("/tickers")
 	public List<Tickers> findAll() {
 
 		return repository.findAll();
 
 	}
 
-	// expose "/Tickerss" get back users by id
-	@GetMapping("/tickerss/{tickersId}")
+	// expose "/Tickers" get back users by id
+	@GetMapping("/tickers/{tickersId}")
 	public Optional<Tickers> getTickers(@PathVariable int tickersId) {
 
 		return repository.findById(tickersId);
 	}
 
 	// add mapping to add new Tickers
-	@PostMapping(path = "/tickerss", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/tickers", consumes = "application/json", produces = "application/json")
 	public Tickers addTickers(@RequestBody Tickers theTickers) {
 
 		return repository.save(theTickers);
@@ -59,7 +59,7 @@ public class TickerRestController {
 	}
 
 	// add mapping to update an Tickers
-	@PutMapping("/tickerss/{tickersId}")
+	@PutMapping("/tickers/{tickersId}")
 	public Optional<Tickers> updateTickers(@RequestBody Tickers theTickers, @PathVariable int tickersId) {
 
 		return repository.findById(tickersId)
@@ -76,7 +76,7 @@ public class TickerRestController {
 	}
 
 	// add mapping to remove an Tickers
-	@DeleteMapping("/tickerss/{tickersId}")
+	@DeleteMapping("/tickers/{tickersId}")
 	public String removeTickers(@PathVariable int tickersId) {
 
 		repository.deleteById(tickersId);

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.avalding.stockapp.tables.Account;
+import com.avalding.stockapp.tables.Portfolios;
 
 @Repository
 @Primary
@@ -26,6 +27,8 @@ public class AccountDAOHibernateImpl implements StockDAO<Account> {
 	// the spring boot feature to connect to the DB
 	private EntityManager entityManager;
 	
+	private Portfolios tempPortfolios;
+	
 	
 
 	@Autowired
@@ -36,12 +39,14 @@ public class AccountDAOHibernateImpl implements StockDAO<Account> {
 
 	@Override
 	@Transactional
-	public void addNewEntitytoDB(Account theAccount) {
+	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios) {
 
 		// get the current hibernate session
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		log.info("Add new entry method has been called");
+		
+		theAccount.addPortfolio(tempPortfolios);
 
 		// save the account
 		currentSession.saveOrUpdate(theAccount);
@@ -112,6 +117,23 @@ public class AccountDAOHibernateImpl implements StockDAO<Account> {
 
 		return theAccount;
 
+	}
+
+
+	@Override
+	public void addNewEntitytoDB(Account theAccount) {
+
+		// get the current hibernate session
+				Session currentSession = entityManager.unwrap(Session.class);
+
+				log.info("Add new entry method has been called");
+				
+
+				// save the account
+				currentSession.saveOrUpdate(theAccount);
+
+				log.info(theAccount.toString());
+		
 	}
 
 }

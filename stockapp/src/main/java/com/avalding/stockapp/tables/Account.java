@@ -46,7 +46,7 @@ public class Account {
 	
 
 
-	protected Account() {
+	public Account() {
 	}
 
 	public Account(String firstName, String lastName, String ownerType) {
@@ -97,7 +97,7 @@ public class Account {
 	}
 
 	public void setPortfolios(List<Portfolios> portfolios) {
-		this.portfolios = portfolios;
+		this.portfolios = portfolios; 
 	}
 
 	public List<AccountBalances> getAccountBalances() {
@@ -125,6 +125,8 @@ public class Account {
 		}
 
 		portfolios.add(tempPortfolio);
+		
+		tempPortfolio.setAccounts(this);
 	}
 	
 	

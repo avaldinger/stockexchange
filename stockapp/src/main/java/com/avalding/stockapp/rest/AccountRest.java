@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ public class AccountRest {
 
 	private AccountRepository repository;
 
-	public List<Account> testList = new ArrayList<>();
+	public List<Account> theAccounts = new ArrayList<>();
 
 	@Autowired
 	public AccountRest(AccountRepository theRepository) {
@@ -63,16 +64,15 @@ public class AccountRest {
 	@PutMapping("/accounts/{accountId}")
 	public Optional<Account> updateAccount(@RequestBody Account theAccount, @PathVariable int accountId) {
 
-		return repository.findById(accountId)
-				.map(account -> {
-				account.setFirstName(theAccount.getFirstName());
-				account.setLastName(theAccount.getLastName());
-				account.setOwnerType(theAccount.getOwnerType());
-				account.setPortfolios(theAccount.getPortfolios());
-				account.setOrders(theAccount.getOrders());
-				account.setAccountBalances(theAccount.getAccountBalances());
-				return repository.save(account);
-		
+		return repository.findById(accountId).map(account -> {
+			account.setFirstName(theAccount.getFirstName());
+			account.setLastName(theAccount.getLastName());
+			account.setOwnerType(theAccount.getOwnerType());
+			account.setPortfolios(theAccount.getPortfolios());
+			account.setOrders(theAccount.getOrders());
+			account.setAccountBalances(theAccount.getAccountBalances());
+			return repository.save(account);
+
 		});
 	}
 

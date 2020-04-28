@@ -1,6 +1,8 @@
 package com.avalding.stockapp.rest;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,14 +31,13 @@ public class PriceHistoryRestController {
 
 	private PriceHistoryRepository repository;
 
-
 	@Autowired
 	public PriceHistoryRestController(PriceHistoryRepository theRepository) {
 		repository = theRepository;
 	}
 
 	// expose "/PriceHistorys" get back uses
-	@GetMapping("/priceHistorys")
+	@GetMapping("/priceHistory")
 	public List<PriceHistory> findAll() {
 
 		return repository.findAll();
@@ -44,36 +45,44 @@ public class PriceHistoryRestController {
 	}
 
 	// expose "/PriceHistorys" get back users by id
-	@GetMapping("/priceHistorys/{priceHistoryId}")
+	@GetMapping("/priceHistory/{priceHistoryId}")
 	public Optional<PriceHistory> getPriceHistory(@PathVariable int PriceHistoryId) {
 
 		return repository.findById(PriceHistoryId);
 	}
 
 	// add mapping to add new PriceHistory
-	@PostMapping(path = "/priceHistorys", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/priceHistory", consumes = "application/json", produces = "application/json")
 	public PriceHistory addPriceHistory(@RequestBody PriceHistory thePriceHistory) {
+
+		// getting the current date when a new entry is created
+		// creating a Timestamp object to populate the corresponding field
+		Date date = new Date();
+		long time = date.getTime();
+		Timestamp ts = new Timestamp(time);
+		
+		thePriceHistory.setTimeStamp(ts);
 
 		return repository.save(thePriceHistory);
 
 	}
 
 	// add mapping to update an PriceHistory
-	@PutMapping("/priceHistorys/{priceHistoryId}")
-	public Optional<PriceHistory> updatePriceHistory(@RequestBody PriceHistory thePriceHistory, @PathVariable int priceHistoryId) {
+	@PutMapping("/priceHistory/{priceHistoryId}")
+	public Optional<PriceHistory> updatePriceHistory(@RequestBody PriceHistory thePriceHistory,
+			@PathVariable int priceHistoryId) {
 
-		return repository.findById(priceHistoryId)
-				.map(priceHistory -> {
-				priceHistory.setPrice(thePriceHistory.getPrice());
-				priceHistory.setTickerName(thePriceHistory.getTickerName());
-				priceHistory.setTimeStamp(thePriceHistory.getTimeStamp());
-				return repository.save(priceHistory);
-		
+		return repository.findById(priceHistoryId).map(priceHistory -> {
+			priceHistory.setPrice(thePriceHistory.getPrice());
+			priceHistory.setTickerName(thePriceHistory.getTickerName());
+			priceHistory.setTimeStamp(thePriceHistory.getTimeStamp());
+			return repository.save(priceHistory);
+
 		});
 	}
 
 	// add mapping to remove an PriceHistory
-	@DeleteMapping("/priceHistorys/{priceHistoryId}")
+	@DeleteMapping("/priceHistory/{priceHistoryId}")
 	public String removePriceHistory(@PathVariable int priceHistoryId) {
 
 		repository.deleteById(priceHistoryId);

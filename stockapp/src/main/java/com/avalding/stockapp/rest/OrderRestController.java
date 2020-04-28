@@ -1,6 +1,8 @@
 package com.avalding.stockapp.rest;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class OrderRestController {
 
 	// quick and dirty: inject Orders DAO
 	@Autowired
-	@Qualifier("OrderDAO") 
+	@Qualifier("OrderDAO")
 	private StockDAO stockDAO;
 
 	public List<Orders> testList = new ArrayList<>();
@@ -32,8 +34,9 @@ public class OrderRestController {
 	public OrderRestController(StockDAO theStockDAO) {
 		stockDAO = theStockDAO;
 	}
-	
-	public OrderRestController() {}
+
+	public OrderRestController() {
+	}
 
 	// expose "/orders" get back uses
 	@GetMapping("/orders")
@@ -57,35 +60,42 @@ public class OrderRestController {
 	}
 
 	// add mapping to add new Orders
-	@PostMapping(path="/orders", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/orders", consumes = "application/json", produces = "application/json")
 	public Orders addOrders(@RequestBody Orders theOrders) {
 
 		theOrders.setId(0);
+
+		// getting the current date when a new entry is created
+		// creating a Timestamp object to populate the corresponding field
+		Date date = new Date();
+		long time = date.getTime();
+		Timestamp ts = new Timestamp(time);
+
+		theOrders.setTimestamp(ts);
 
 		stockDAO.addNewEntitytoDB(theOrders);
 
 		return theOrders;
 
 	}
-	
+
 	// add mapping to update an Orders
 	@PutMapping("/orders/{orderId}")
 	public Orders updateOrders(@PathVariable int orderId) {
-		
+
 		Orders theOrders = (Orders) stockDAO.updatById(orderId);
-		
+
 		return theOrders;
-		
+
 	}
-	
-	
+
 	// add mapping to remove an Orders
 	@DeleteMapping("/orders/{orderId}")
 	public String removeOrders(@PathVariable int orderId) {
-		
+
 		stockDAO.deleteById(orderId);
-		
-		return "Orders with id: " +  orderId + " has been permanently removed from the Database.";
+
+		return "Orders with id: " + orderId + " has been permanently removed from the Database.";
 	}
 
 }

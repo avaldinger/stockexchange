@@ -1,0 +1,63 @@
+<!DOCTYPE HTML >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+
+<title>Stock App Accounts Directory</title>
+</head>
+
+<body>
+
+<div class="container">
+
+	<h3>Account Directory</h3>
+	<hr>
+
+	<!-- Add button to add new Account -->
+	<a th:href="@{/api/showFormForAdd}"
+		class="btn btn-primary btn-sm mb-3">
+		Add Account
+	</a>
+	<table class="table table-bordered table-strioed">
+		<thead class="thead-dark">
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Owner Type</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="tempAccount :${accounts}">
+
+				<td th:text="${tempAccount.firstName}" />
+				<td th:text="${tempAccount.lastName}" />
+				<td th:text="${tempAccount.ownerType}" />
+				
+				<!-- Add Update Button Link -->
+				<td>
+				<a th:href="@{/api/showFormForUpdate(accountId=${tempAccount.id})}"
+				 class="btn btn-info btm-sm">
+					Update
+				</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</body>
+
+
+</html>

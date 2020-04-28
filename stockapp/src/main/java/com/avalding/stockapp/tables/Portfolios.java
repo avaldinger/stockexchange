@@ -3,12 +3,15 @@ package com.avalding.stockapp.tables;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="portfolios")
@@ -25,8 +28,9 @@ public class Portfolios {
 	private int amount;
 	
 	
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinColumn(name = "fk_account_id_portfolios", referencedColumnName="id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+	@JoinColumn(name = "fk_account_id_portfolios", nullable = false, updatable = true, insertable = true)
+	@JsonBackReference
 	private Account accounts;
 	
 	
@@ -65,6 +69,14 @@ public class Portfolios {
 	@Override
 	public String toString() {
 		return "Portfolios: id=" + id + ", ticker=" + ticker + ", amount=" + amount;
+	}
+
+	public Account getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Account accounts) {
+		this.accounts = accounts;
 	}
 	
 	

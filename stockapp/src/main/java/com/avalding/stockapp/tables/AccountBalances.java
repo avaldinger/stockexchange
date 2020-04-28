@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="account_balances")
 public class AccountBalances {
@@ -29,6 +31,9 @@ public class AccountBalances {
 	
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "fk_account_id_account_balances")
+	// Annotation to avoid JSON loop when calling 
+	// all the info about the Account
+	@JsonBackReference
 	private Account accounts;
 	
 	

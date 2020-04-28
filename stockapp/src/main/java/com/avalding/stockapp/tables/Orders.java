@@ -1,5 +1,6 @@
 package com.avalding.stockapp.tables;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "orders")
@@ -33,21 +36,22 @@ public class Orders {
 	@Column(name = "state")
 	private String state;
 	@Column(name = "timestamp")
-	private Date timestamp;
+	private Timestamp timestamp;
 	@Column(name = "expiration")
-	private Date expiration;
+	private Timestamp expiration;
 	
 	
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "fk_account_id_orders")
+	@JsonBackReference
 	private Account accounts;
 
 
 	public Orders() {
 	}
 
-	public Orders(String ticker, int amount, String typeOfOrder, int limit, String state, Date timestamp,
-			Date expiration) {
+	public Orders(String ticker, int amount, String typeOfOrder, int limit, String state, Timestamp timestamp,
+			Timestamp expiration) {
 		this.ticker = ticker;
 		this.amount = amount;
 		this.typeOfOrder = typeOfOrder;
@@ -109,7 +113,7 @@ public class Orders {
 		return timestamp;
 	}
 
-	public void setTimestamp(Date timestamp) {
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -117,7 +121,7 @@ public class Orders {
 		return expiration;
 	}
 
-	public void setExpiration(Date expiration) {
+	public void setExpiration(Timestamp expiration) {
 		this.expiration = expiration;
 	}
 
