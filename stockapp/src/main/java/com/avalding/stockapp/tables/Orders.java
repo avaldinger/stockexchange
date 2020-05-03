@@ -131,4 +131,14 @@ public class Orders {
 				+ ", limit=" + limit + ", state=" + state + ", timestamp=" + timestamp + ", expiration=" + expiration;
 	}
 
+	public Account getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Account accounts) {
+		this.accounts = accounts;
+	}
+	
+	
+
 }

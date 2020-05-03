@@ -1,6 +1,5 @@
 package com.avalding.stockapp.tables;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,21 +29,14 @@ public class Account {
 	@Column(name = "owner_type")
 	private String ownerType;
 
-	
-	@OneToMany(mappedBy="accounts", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "accounts", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private List<Portfolios> portfolios;
-	
-	
-	
-	@OneToMany(mappedBy="accounts", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-	private List<AccountBalances> accountBalances;
-	
-	
-	
-	@OneToMany(mappedBy="accounts", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-	private List<Orders> orders;
-	
 
+	@OneToMany(mappedBy = "accounts", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	private List<AccountBalances> accountBalances;
+
+	@OneToMany(mappedBy = "accounts", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	private List<Orders> orders;
 
 	public Account() {
 	}
@@ -97,7 +89,7 @@ public class Account {
 	}
 
 	public void setPortfolios(List<Portfolios> portfolios) {
-		this.portfolios = portfolios; 
+		this.portfolios = portfolios;
 	}
 
 	public List<AccountBalances> getAccountBalances() {
@@ -116,7 +108,6 @@ public class Account {
 		this.orders = orders;
 	}
 
-	
 	// convenience method to add portfolios
 	public void addPortfolio(Portfolios tempPortfolio) {
 
@@ -125,12 +116,32 @@ public class Account {
 		}
 
 		portfolios.add(tempPortfolio);
-		
+
 		tempPortfolio.setAccounts(this);
 	}
-	
-	
-	
-	
+
+	// convenience method to add portfolios
+	public void addOrders(Orders tempOrders) {
+
+		if (orders == null) {
+			orders = new ArrayList<>();
+		}
+
+		orders.add(tempOrders);
+
+		tempOrders.setAccounts(this);
+	}
+
+	// convenience method to add portfolios
+	public void addAccountBalance(AccountBalances tempAccountBalance) {
+
+		if (accountBalances == null) {
+			accountBalances = new ArrayList<>();
+		}
+
+		accountBalances.add(tempAccountBalance);
+
+		tempAccountBalance.setAccounts(this);
+	}
 
 }

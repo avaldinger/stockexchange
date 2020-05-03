@@ -83,6 +83,14 @@ public class AccountBalances {
 		return "AccountBalances: id=" + id + ", amount=" + amount + ", currency=" + currency + ", balanceAvailable="
 				+ balanceAvailable;
 	}
+
+	public Account getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Account accounts) {
+		this.accounts = accounts;
+	}
 	
 	
 	

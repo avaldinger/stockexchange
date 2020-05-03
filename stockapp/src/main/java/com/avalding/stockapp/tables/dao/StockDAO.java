@@ -3,6 +3,8 @@ package com.avalding.stockapp.tables.dao;
 import java.util.List;
 
 import com.avalding.stockapp.tables.Account;
+import com.avalding.stockapp.tables.AccountBalances;
+import com.avalding.stockapp.tables.Orders;
 import com.avalding.stockapp.tables.Portfolios;
 
 public interface StockDAO<T> {
@@ -18,5 +20,9 @@ public interface StockDAO<T> {
 	public T updatById(int theId);
 
 	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios);
+	
+	public void addNewEntitytoDB(Account theAccount, Orders tempOrders);
+	
+	public void addNewEntitytoDB(Account theAccount, AccountBalances tempAccountBalances);
 
 }

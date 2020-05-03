@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.avalding.stockapp.tables.Account;
+import com.avalding.stockapp.tables.AccountBalances;
+import com.avalding.stockapp.tables.Orders;
 import com.avalding.stockapp.tables.Portfolios;
 
 @Repository
@@ -113,6 +115,18 @@ public class PortfoliosDAOHibernateImpl implements StockDAO<Portfolios> {
 
 	@Override
 	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addNewEntitytoDB(Account theAccount, Orders tempOrders) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addNewEntitytoDB(Account theAccount, AccountBalances tempAccountBalances) {
 		// TODO Auto-generated method stub
 		
 	}
