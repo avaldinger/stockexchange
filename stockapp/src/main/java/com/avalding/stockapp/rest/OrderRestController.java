@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avalding.stockapp.tables.Orders;
-import com.avalding.stockapp.tables.dao.StockDAO;
+import com.avalding.stockapp.dao.StockDAO;
 
 @RestController
 @RequestMapping("/api")

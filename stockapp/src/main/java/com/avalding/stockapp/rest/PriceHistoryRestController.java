@@ -1,13 +1,11 @@
 package com.avalding.stockapp.rest;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avalding.stockapp.tables.PriceHistory;
-import com.avalding.stockapp.tables.dao.PriceHistoryRepository;
-import com.avalding.stockapp.tables.dao.StockDAO;
+import com.avalding.stockapp.dao.PriceHistoryRepository;
 
 @RestController
 @RequestMapping("/api")

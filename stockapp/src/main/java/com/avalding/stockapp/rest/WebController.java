@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.avalding.stockapp.tables.Account;
-import com.avalding.stockapp.tables.dao.AccountRepository;
+import com.avalding.stockapp.dao.AccountRepository;
 
 @Controller
 @RequestMapping("/api")

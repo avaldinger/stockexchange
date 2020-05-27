@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avalding.stockapp.tables.Account;
-import com.avalding.stockapp.tables.dao.AccountRepository;
-import com.avalding.stockapp.tables.dao.StockDAO;
+import com.avalding.stockapp.dao.AccountRepository;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api")
@@ -49,7 +48,14 @@ public class AccountRest {
 	@GetMapping("/accounts/{accountId}")
 	public Optional<Account> getAccount(@PathVariable int accountId) {
 
-		return repository.findById(accountId);
+		// checking for existing accounts
+		// throwing error in case of invali/non-existing ID
+		if(repository.findById(accountId).isPresent()){
+			return repository.findById(accountId);
+		} else {
+			throw new EntityNotFoundException("Account is not found.");
+		}
+
 	}
 
 	// add mapping to add new account
