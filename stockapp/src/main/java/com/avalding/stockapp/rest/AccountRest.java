@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.avalding.stockapp.tables.AccountBalances;
+import com.avalding.stockapp.tables.Orders;
+import com.avalding.stockapp.tables.Portfolios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,7 +41,7 @@ public class AccountRest {
     }
 
     // expose "/accounts" get back uses
-    // Pagination added with Pegable Interface and the RequestParams
+    // Pagination added with Pageable Interface and the RequestParams
     @GetMapping(value = "/accounts")
     public Page<Account> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -70,7 +73,11 @@ public class AccountRest {
 
     // add mapping to add new account
     @PostMapping(path = "/accounts", consumes = "application/json", produces = "application/json")
-    public Account addAccount(@RequestBody Account theAccount) {
+    public Account addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios, Orders tempOrders, AccountBalances tempAccountBalances) {
+
+        theAccount.addPortfolio(tempPortfolios);
+        theAccount.addAccountBalance(tempAccountBalances);
+        theAccount.addOrders(tempOrders);
 
         return repository.save(theAccount);
 
