@@ -135,4 +135,20 @@ public class AccountBalancesDAOHibernateImpl implements StockDAO<AccountBalances
 		
 	}
 
+	@Override
+	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios, Orders tempOrders, AccountBalances tempAccountBalances) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+
+		theAccount.addPortfolio(tempPortfolios);
+		theAccount.addOrders(tempOrders);
+		theAccount.addAccountBalance(tempAccountBalances);
+
+		// save the account
+		currentSession.saveOrUpdate(theAccount);
+
+	}
+
 }

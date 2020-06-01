@@ -31,7 +31,7 @@ public class Orders {
 	// maybe needs another type of variable
 	@Column(name = "type_of_order")
 	private String typeOfOrder;
-	@Column(name = "limit")
+	@Column(name = "`limit`")
 	private int limit;
 	@Column(name = "state")
 	private String state;

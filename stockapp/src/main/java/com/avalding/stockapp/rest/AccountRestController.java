@@ -3,6 +3,8 @@ package com.avalding.stockapp.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avalding.stockapp.tables.AccountBalances;
+import com.avalding.stockapp.tables.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +63,37 @@ public class AccountRestController {
 		theAccount.setId(0);
 
 		stockDAO.addNewEntitytoDB(theAccount);
+
+		return theAccount;
+	}
+	// add mapping to add new Portfolios
+	@PostMapping(path="/accounts4", consumes = "application/json", produces = "application/json")
+	public Account addAccounts2(@RequestBody Account theAccount, Portfolios thePortfolio, Orders tempOrder, AccountBalances tempAccountBalances) {
+
+		theAccount.setId(0);
+
+		stockDAO.addNewEntitytoDB(theAccount, thePortfolio, tempOrder, tempAccountBalances);
+
+		return theAccount;
+	}
+
+	// add mapping to add new Portfolios
+	@PostMapping(path="/accounts5", consumes = "application/json", produces = "application/json")
+	public Account addAccounts2(@RequestBody Account theAccount, Orders tempOrder) {
+
+		theAccount.setId(0);
+
+		stockDAO.addNewEntitytoDB(theAccount, tempOrder);
+
+		return theAccount;
+	}
+
+	@PostMapping(path="/accounts6", consumes = "application/json", produces = "application/json")
+	public Account addAccounts6(@RequestBody Account theAccount, AccountBalances tempAccountBalances) {
+
+		theAccount.setId(0);
+
+		stockDAO.addNewEntitytoDB(theAccount,tempAccountBalances);
 
 		return theAccount;
 	}

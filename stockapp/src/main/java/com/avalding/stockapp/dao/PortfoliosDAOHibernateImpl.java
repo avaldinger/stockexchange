@@ -131,4 +131,9 @@ public class PortfoliosDAOHibernateImpl implements StockDAO<Portfolios> {
 		
 	}
 
+	@Override
+	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios, Orders tempOrders, AccountBalances tempAccountBalances) {
+
+	}
+
 }

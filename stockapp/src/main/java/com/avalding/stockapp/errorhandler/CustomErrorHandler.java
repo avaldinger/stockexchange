@@ -26,7 +26,7 @@ public class CustomErrorHandler extends ResponseEntityExceptionHandler {
 
 
         String response = "Invalid argument type.";
-        return handleExceptionInternal(ex, response, new HttpHeaders(), HttpStatus.CONFLICT, request        );
+        return handleExceptionInternal(ex, response, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 
     @ExceptionHandler( {Exception.class})

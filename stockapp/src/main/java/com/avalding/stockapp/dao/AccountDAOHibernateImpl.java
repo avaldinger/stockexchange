@@ -55,6 +55,26 @@ public class AccountDAOHibernateImpl implements StockDAO<Account> {
 
 	@Override
 	@Transactional
+	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios, Orders tempOrders, AccountBalances tempAccountBalances) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		log.info("Add new entry method has been called");
+
+		theAccount.addPortfolio(tempPortfolios);
+		theAccount.addAccountBalance(tempAccountBalances);
+		theAccount.addOrders(tempOrders);
+
+		// save the account
+		currentSession.saveOrUpdate(theAccount);
+
+		log.info(theAccount.toString());
+
+	}
+
+	@Override
+	@Transactional
 	public void deleteById(int theId) {
 
 		// get the current hibernate session
@@ -140,7 +160,7 @@ public class AccountDAOHibernateImpl implements StockDAO<Account> {
 
 		log.info("Add new entry method has been called");
 
-		theAccount.addPortfolio(tempPortfolios);
+		theAccount.addOrders(tempOrders);
 
 		// save the account
 		currentSession.saveOrUpdate(theAccount);
@@ -151,7 +171,14 @@ public class AccountDAOHibernateImpl implements StockDAO<Account> {
 
 	@Override
 	public void addNewEntitytoDB(Account theAccount, AccountBalances tempAccountBalances) {
-		// TODO Auto-generated method stub
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+		theAccount.addAccountBalance(tempAccountBalances);
+
+		// save the account
+		currentSession.saveOrUpdate(theAccount);
 
 	}
 

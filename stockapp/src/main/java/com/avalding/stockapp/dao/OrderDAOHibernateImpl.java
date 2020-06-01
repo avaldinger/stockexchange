@@ -115,20 +115,64 @@ public class OrderDAOHibernateImpl implements StockDAO<Orders> {
 
 	@Override
 	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios) {
-		// TODO Auto-generated method stub
+
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+
+		theAccount.addPortfolio(tempPortfolios);
+
+		// save the account
+		currentSession.saveOrUpdate(theAccount);
 		
 	}
 
 	@Override
 	public void addNewEntitytoDB(Account theAccount, Orders tempOrders) {
-		// TODO Auto-generated method stub
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+
+
+		theAccount.addOrders(tempOrders);
+
+
+		// save the account
+		currentSession.saveOrUpdate(theAccount);
 		
 	}
 
 	@Override
 	public void addNewEntitytoDB(Account theAccount, AccountBalances tempAccountBalances) {
-		// TODO Auto-generated method stub
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+
+
+		theAccount.addAccountBalance(tempAccountBalances);
+
+		// save the account
+		currentSession.saveOrUpdate(theAccount);
 		
+	}
+
+	@Override
+	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios, Orders tempOrders, AccountBalances tempAccountBalances) {
+
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+
+
+		theAccount.addPortfolio(tempPortfolios);
+		theAccount.addOrders(tempOrders);
+		theAccount.addAccountBalance(tempAccountBalances);
+
+		// save the account
+		currentSession.saveOrUpdate(theAccount);
+
 	}
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.avalding.stockapp.dao.AccountDAO;
+import com.avalding.stockapp.dao.StockDAO;
 import com.avalding.stockapp.tables.AccountBalances;
 import com.avalding.stockapp.tables.Orders;
 import com.avalding.stockapp.tables.Portfolios;
@@ -27,9 +29,11 @@ public class AccountRest {
 
     // quick and dirty: inject Account DAO
     // @Autowired
-    // private StockDAO stockDAO;
+    private StockDAO stockDAO;
 
     private AccountRepository repository;
+
+    private AccountDAO accountDAO;
 
 
 
@@ -73,13 +77,35 @@ public class AccountRest {
 
     // add mapping to add new account
     @PostMapping(path = "/accounts", consumes = "application/json", produces = "application/json")
-    public Account addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios, Orders tempOrders, AccountBalances tempAccountBalances) {
+    public Account addNewEntitytoDB(@RequestBody Account theAccount) {
 
-        theAccount.addPortfolio(tempPortfolios);
-        theAccount.addAccountBalance(tempAccountBalances);
-        theAccount.addOrders(tempOrders);
 
         return repository.save(theAccount);
+
+    }
+
+    // add mapping to add new account
+    @PostMapping(path = "/accounts_2", consumes = "application/json", produces = "application/json")
+    public Account addNewEntitytoDB2(@RequestBody Account theAccount, Portfolios tempPortfolios,
+                                     Orders tempOrders, AccountBalances tempAccountBalances) {
+
+        theAccount.setId(0);
+
+        accountDAO.addNewEntitytoDB(theAccount, tempPortfolios, tempOrders, tempAccountBalances);
+
+        return theAccount;
+
+    }
+
+    // add mapping to add new account
+    @PostMapping(path = "/accounts_3", consumes = "application/json", produces = "application/json")
+    public Account addNewEntitytoDB3(@RequestBody Account theAccount, Portfolios tempPortfolios) {
+
+        theAccount.setId(0);
+
+        stockDAO.addNewEntitytoDB(theAccount, tempPortfolios);
+
+        return theAccount;
 
     }
 

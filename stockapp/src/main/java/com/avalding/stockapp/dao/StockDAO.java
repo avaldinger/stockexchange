@@ -25,4 +25,6 @@ public interface StockDAO<T> {
 	
 	public void addNewEntitytoDB(Account theAccount, AccountBalances tempAccountBalances);
 
+	public void addNewEntitytoDB(Account theAccount, Portfolios tempPortfolios, Orders tempOrders, AccountBalances tempAccountBalances);
+
 }
